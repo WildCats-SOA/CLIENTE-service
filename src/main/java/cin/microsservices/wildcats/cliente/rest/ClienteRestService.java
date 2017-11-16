@@ -79,6 +79,10 @@ public class ClienteRestService {
 
         }
 
+        if(cli==null){
+            throw new RuntimeException("Cliente Não Existe!");
+        }
+
         logger.info("foi buscado o cliente " + cli.getNome());
 
         return cli;
@@ -87,7 +91,11 @@ public class ClienteRestService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void addCliente(Cliente cliente) {
-
+        for(Cliente cli: clientes.values()){
+            if(cli.getId()==cliente.getId()){
+                throw new RuntimeException("Cliente já existe!");
+            }
+        }
         logger.warn("O cliente " + cliente.getId() + " foi inserido!");
 
         clientes.put(cliente.getId(), cliente);
