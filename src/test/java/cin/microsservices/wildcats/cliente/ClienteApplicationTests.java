@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.hamcrest.core.Is;
 import static org.hamcrest.CoreMatchers.is;
 import org.hamcrest.core.IsEqual;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,16 +34,16 @@ public class ClienteApplicationTests {
 	@Before
 	public void inicia() {
 		// Criando clientes
-		cliente1.setId(1);
+		cliente1.setId(6);
 		cliente1.setNome("Carlos Melo");
 		cliente1.setEmail("chnm@cin.ufpe.br");
-		cliente2.setId(2);
+		cliente2.setId(7);
 		cliente2.setNome("Augusto Lima");
 		cliente2.setEmail("arl4@cin.ufpe.br");
-		cliente3.setId(3);
+		cliente3.setId(8);
 		cliente3.setNome("Pedro Neto");
 		cliente3.setEmail("pjsn@cin.ufpe.br");
-		cliente4.setId(4);
+		cliente4.setId(9);
 		cliente4.setNome("Rafael Jodão");
 		cliente4.setEmail("rfpj@cin.ufpe.br");
 		
@@ -51,6 +52,14 @@ public class ClienteApplicationTests {
 		clientRest.addCliente(cliente2);
 		clientRest.addCliente(cliente3);
 		clientRest.addCliente(cliente4);
+	}
+	@After
+	public void finaliza() {
+		// Criando clientes
+		clientRest.deleteCliente(Long.valueOf(6));
+		clientRest.deleteCliente(Long.valueOf(7));
+		clientRest.deleteCliente(Long.valueOf(8));
+		clientRest.deleteCliente(Long.valueOf(9));
 	}
 	
 	/**
@@ -65,7 +74,7 @@ public class ClienteApplicationTests {
 		
 		
 		//=================Verificação====================		
-		assertThat(cliente1.getId(), is(Long.valueOf(1)));
+		assertThat(cliente1.getId(), is(Long.valueOf(6)));
 		assertThat(cliente1.getEmail(), is("chnm@cin.ufpe.br"));
 		assertThat(cliente1.getNome(), is("Carlos Melo"));
 		assertEquals(Cliente.class, cliente1.getClass());
@@ -80,9 +89,9 @@ public class ClienteApplicationTests {
 	public void testClientRestGetCliente() {
 				
 		Cliente cliente;
-		cliente = clientRest.getCliente(Long.valueOf(1));
+		cliente = clientRest.getCliente(Long.valueOf(6));
 		//=================Verificação====================		
-		assertThat(cliente.getId(), is(Long.valueOf(1)));
+		assertThat(cliente.getId(), is(Long.valueOf(6)));
 		assertThat(cliente.getNome(), is("Carlos Melo"));
 		
 	}
@@ -94,13 +103,13 @@ public class ClienteApplicationTests {
 	@Test
 	public void testClientRestDelCliente() {
 		
-		clientRest.deleteCliente(Long.valueOf(1));
+		clientRest.deleteCliente(Long.valueOf(6));
 		
 		Cliente cliente;
 		
 		//=================Verificação====================	
 		try {
-		cliente = clientRest.getCliente(Long.valueOf(1));
+		cliente = clientRest.getCliente(Long.valueOf(6));
 		fail();
 		}
 		catch (Exception e) {
@@ -119,12 +128,12 @@ public class ClienteApplicationTests {
 	@Test
 	public void testClientRestUpdateCliente() {
 		Cliente cliente = new Cliente();
-		cliente.setId(2);
+		cliente.setId(7);
 		cliente.setNome("Gutin do Borel");
 		cliente.setEmail("arl4@cin.ufpe.br");
 		clientRest.mergeCliente(cliente);
 		Cliente testee;
-		testee = clientRest.getCliente(Long.valueOf(2));
+		testee = clientRest.getCliente(Long.valueOf(7));
 		//=================Verificação====================	
 		assertThat(testee.getNome(),is("Gutin do Borel"));
 		
@@ -137,7 +146,7 @@ public class ClienteApplicationTests {
 	@Test
 	public void testClientRestNotUpdateCliente() {
 		Cliente clienteTest = new Cliente();
-		clienteTest.setId(6);
+		clienteTest.setId(10);
 		clienteTest.setNome("Carlin do Borel");
 		clienteTest.setEmail("chnm@cin.ufpe.br");
 		
