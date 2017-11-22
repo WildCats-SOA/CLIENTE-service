@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.awt.List;
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.hamcrest.core.Is;
 import static org.hamcrest.CoreMatchers.is;
@@ -183,6 +184,14 @@ public class ClienteApplicationTests {
 			// um cliente que o id já existe.
 		}
 		
+	}
+	/**
+	 * Testando se há todos os clientes adicionados.
+	 * 21/11/2017
+	 */
+	@Test
+	public void testClientSizeTotal() {
+		assertThat(clientRest.getClientes().size(),is(9));
 	}
 
 }
